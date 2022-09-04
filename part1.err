@@ -1,0 +1,54 @@
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 48 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 50 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 51 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[203] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 52 : Found opcode in column 1. (RETFIE)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 60 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 65 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 66 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 67 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 68 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 69 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 97 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 103 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 107 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 108 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 109 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 110 : Using default destination of 1 (file).
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 118 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 122 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 123 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 124 : Using default destination of 1 (file).
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 132 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 136 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 137 : Using default destination of 1 (file).
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 145 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 152 : Using default destination of 1 (file).
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 171 : Using default destination of 1 (file).
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 174 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 184 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 193 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 201 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 214 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 221 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 226 : Found label after column 1. (d_4sec)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 229 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 238 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 243 : Found label after column 1. (d_2sec)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 246 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 251 : Found label after column 1. (d_1sec)
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 254 : Found label after column 1. (loop3)
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 257 : Found label after column 1. (loop2)
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 260 : Found label after column 1. (loop)
+Warning[203] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 269 : Found opcode in column 1. (return)
+Message[305] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 274 : Using default destination of 1 (file).
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 277 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 284 : Found label after column 1. (fours)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 287 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 292 : Found label after column 1. (threes)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 295 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 300 : Found label after column 1. (twos)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 303 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 308 : Found label after column 1. (ones)
+Message[302] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 311 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Warning[207] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 315 : Found label after column 1. (last)
+Warning[203] D:\REAL TIME\MPLAP TEST\PART\PART1.ASM 316 : Found opcode in column 1. (return)

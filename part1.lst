@@ -1,0 +1,491 @@
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00001 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00002 ;       Fourth Project -
+                      00003 ; fun binary counter using PIC16F877A   
+                      00004 ;
+                      00005 ;       Students  : tasneem shouibi     ***             ahed mafarjeh   ***     moayad saleem
+                      00006 ;       ID        :             1150504         ***             1162083             ***         1170546
+                      00007 ;       
+                      00008 ;       Instructor: Dr. Hanna Bullata
+                      00009 ;       Date      : 25\12\2021
+                      00010 ;
+                      00011 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00012     
+                      00013         PROCESSOR 16F877A
+2007   3731           00014         __CONFIG 0x3731
+                      00015 
+                      00016 
+                      00017 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00018 
+                      00019         cblock 0x25
+  00000025            00020 count   
+  00000026            00021 delay1  
+  00000027            00022 delay2
+  00000028            00023 bt
+  00000029            00024 bt_count
+  0000002A            00025 bt2
+  0000002B            00026 bt2_count
+  0000002C            00027 d1
+  0000002D            00028 d2
+  0000002E            00029 d3
+                      00030         endc
+                      00031 
+                      00032 ; regester LABEL EQUATES        ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00033 
+  00000006            00034 PORTB   EQU             06 
+  00000008            00035 PORTD   EQU     08      
+  00000088            00036 TRISD   EQU             88
+  00000086            00037 TRISB   EQU             86
+  00000083            00038 STATUS  EQU     83
+  00000081            00039 OPTION_REG  EQU     81
+  0000008B            00040 INTCON EQU 8B
+                      00041 
+                      00042 ; PROGRAM BEGINS    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00043         ORG     000             ; Start of program memory
+0000   2???           00044         GOTO    start
+                      00045 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+0001                  00046 ISR
+                      00047         ORG 004
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0004   138B           00048         BCF INTCON,7
+0005   1488           00049         BSF PORTD,1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0006   108B           00050         BCF INTCON,1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0007   178B           00051         BSF INTCON,7
+Warning[203]: Found opcode in column 1. (RETFIE)
+0008   0009           00052 RETFIE
+                      00053 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00054                       
+                      00055 ; Port & display setup(int port D as output)    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00056         ;bt2_count res 1
+0009                  00057 start
+0009   1683 1303      00058         BANKSEL TRISD           ; Select bank 1
+000B   3000           00059         MOVLW   B'00000000'     
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+000C   0088           00060         MOVWF   TRISD
+                      00061 
+                      00062         
+000D   1683 1303      00063     BANKSEL TRISB
+000F   30FF           00064         MOVLW   B'11111111'     
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0010   0086           00065         MOVWF   TRISB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0011   1701           00066         bsf OPTION_REG,6
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0012   108B           00067         bcf INTCON,1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0013   160B           00068         BSF INTCON,4
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0014   178B           00069         BSF INTCON,7
+0015   1283 1303      00070         BANKSEL PORTB
+0017   3000           00071         movlw d'0'
+0018   00A8           00072         movwf bt ; puch button 1
+0019   3000           00073         movlw d'0'
+001A   00AA           00074         movwf bt2 ; push button 2
+                      00075         
+                      00076 
+001B                  00077 int
+001B   3000           00078         movlw 0x00 ; W=0
+001C   0088           00079         movwf PORTD ; PORTD = 0 --> ALL LEDS ARE OFF
+001D   3020           00080         movlw d'32'
+001E   00A5           00081     movwf count ; FOR COUNTER
+                      00082         
+001F                  00083 Lp
+001F   2???           00084         call delay_check ; check if push button 2 (delay button) is pressed and put delay 
+0020   1806           00085         btfsc PORTB,0 ; check if push button 1 (to increment counter by specific number) is preseed or n
+                            ot 
+0021   2???           00086         goto display ;if not pressed dispaly number using leds --> normal count
+0022   2???           00087         goto btn1_count ;  if pressed --> then check the number of button 1 pressed count 
+                      00088         
+                      00089         
+                      00090 ;       goto Lp
+                      00091 
+                      00092 
+0023                  00093 display
+0023   2???           00094         call delay ; delay 1 sec if button 2 not pressed
+0024   3005           00095         movlw 5 
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0025   0228           00096         subwf bt,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0026   1D03           00097         btfss STATUS,2; if button 1 presed for the fifth time 
+0027   2???           00098         goto four ;if not , go to four label to check if is pressed to the fourth time, and so on ,,,, 
+0028   2???           00099         goto zero
+0029                  00100 four
+0029   3004           00101         movlw 4
+002A   0228           00102         subwf bt,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+002B   1D03           00103         btfss STATUS,2
+002C   2???           00104         goto three      
+002D   3005           00105         movlw 5
+002E   0788           00106         addwf PORTD,1
+Message[305]: Using default destination of 1 (file).
+002F   03A5           00107         decf count
+Message[305]: Using default destination of 1 (file).
+0030   03A5           00108         decf count
+Message[305]: Using default destination of 1 (file).
+0031   03A5           00109         decf count
+Message[305]: Using default destination of 1 (file).
+0032   03A5           00110         decf count
+0033   0BA5           00111         DECFSZ  count,F
+0034   2???           00112         goto Lp
+0035   2???           00113         goto int
+                      00114 
+0036                  00115 three
+0036   3003           00116         movlw 3
+0037   0228           00117         subwf bt,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0038   1D03           00118         btfss STATUS,2
+0039   2???           00119         goto two        
+003A   3004           00120         movlw 4
+003B   0788           00121         addwf PORTD,1
+Message[305]: Using default destination of 1 (file).
+003C   03A5           00122         decf count
+Message[305]: Using default destination of 1 (file).
+003D   03A5           00123         decf count
+Message[305]: Using default destination of 1 (file).
+003E   03A5           00124         decf count
+003F   0BA5           00125         DECFSZ  count,F
+0040   2???           00126         goto Lp
+0041   2???           00127         goto int
+                      00128 
+0042                  00129 two
+0042   3002           00130         movlw 2
+0043   0228           00131         subwf bt,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0044   1D03           00132         btfss STATUS,2
+0045   2???           00133         goto one        
+0046   3003           00134         movlw 3
+0047   0788           00135         addwf PORTD,1
+Message[305]: Using default destination of 1 (file).
+0048   03A5           00136         decf count
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Message[305]: Using default destination of 1 (file).
+0049   03A5           00137         decf count
+004A   0BA5           00138         DECFSZ  count,F
+004B   2???           00139         goto Lp
+004C   2???           00140         goto int
+                      00141 
+004D                  00142 one
+004D   3001           00143         movlw 1
+004E   0228           00144         subwf bt,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+004F   1D03           00145         btfss STATUS,2
+0050   2???           00146         goto zero    
+                      00147         
+0051   3002           00148     movlw 2
+0052   0788           00149         addwf PORTD,1 ; increament counter by 2 --> 0,2,4,6,....30
+                      00150         ;bcf STATUS,2
+                      00151         ;incf PORTD,f
+Message[305]: Using default destination of 1 (file).
+0053   03A5           00152         decf count
+0054   0BA5           00153         DECFSZ  count,F
+0055   2???           00154         goto Lp
+0056   2???           00155         goto int
+                      00156         
+0057                  00157 zero
+0057   3001           00158         movlw 1
+0058   0788           00159         addwf PORTD,1 ; increment counter by 1 --> 0,1,2,3,4,5......31
+                      00160         ;incf PORTD,f
+0059   0BA5           00161         DECFSZ  count,F
+005A   2???           00162         goto Lp
+005B   2???           00163         goto int
+                      00164  
+                      00165         
+                      00166         ;goto int
+                      00167 
+005C   2???           00168         goto Lp
+                      00169 ; here we check if button 1 is pressed and inc bt_count if increment
+005D                  00170 btn1_count
+Message[305]: Using default destination of 1 (file).
+005D   0AA9           00171         incf bt_count ; increment bt_count by 1 
+005E   3005           00172         movlw 5
+005F   0229           00173         subwf bt_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0060   1D03           00174         btfss STATUS,2 ; check if is pressed for fifth time
+0061   2???           00175         goto Tfour
+0062   3000           00176         movlw 0
+0063   00A9           00177         movwf bt_count
+0064   3005           00178         movlw 5
+0065   00A8           00179         movwf bt
+0066   2???           00180         goto display
+0067                  00181 Tfour
+0067   3004           00182         movlw 4
+0068   0229           00183         subwf bt_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0069   1D03           00184         btfss STATUS,2
+006A   2???           00185         goto Tthree
+006B   3004           00186         movlw 4
+006C   00A8           00187         movwf bt
+006D   2???           00188         goto display
+                      00189 
+006E                  00190 Tthree
+006E   3003           00191         movlw 3
+006F   0229           00192         subwf bt_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0070   1D03           00193         btfss STATUS,2
+0071   2???           00194         goto Ttwo
+0072   3003           00195         movlw 3
+0073   00A8           00196         movwf bt
+0074   2???           00197         goto display
+0075                  00198 Ttwo
+0075   3002           00199         movlw 2
+0076   0229           00200         subwf bt_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0077   1D03           00201         btfss STATUS,2
+0078   2???           00202         goto Tone
+0079   3002           00203         movlw 2
+007A   00A8           00204         movwf bt
+007B   2???           00205         goto display
+007C                  00206 Tone
+007C   3001           00207     movlw 1
+007D   00A8           00208         movwf bt
+007E   2???           00209         goto display
+                      00210 ; function that generate delay (1 sec , 2 sec ,3 sec,4 sec,5 sec) 
+007F                  00211 delay
+007F   3005           00212         movlw 5 
+0080   022A           00213         subwf bt2,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0081   1D03           00214         btfss STATUS,2 ;check if button 2 pressed to the fifth time the generate 1 second delay
+0082   2???           00215         goto d_5sec ;else chck if is pressed to the fourh time to generate 5 second delay and so on ...
+0083   2???           00216         goto d_1sec
+                      00217 
+0084                  00218 d_5sec
+0084   3004           00219         movlw 4
+0085   022A           00220         subwf bt2,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0086   1D03           00221         btfss STATUS,2
+0087   2???           00222         goto d_4sec
+0088   3014           00223         movlw d'20'
+0089   00AE           00224         movwf d3
+008A   2???           00225         goto loop3
+Warning[207]: Found label after column 1. (d_4sec)
+008B                  00226         d_4sec
+008B   3003           00227         movlw 3
+008C   022A           00228         subwf bt2,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+008D   1D03           00229         btfss STATUS,2
+008E   2???           00230         goto d_3sec
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+008F   3010           00231         movlw d'16'
+0090   00AE           00232         movwf d3
+0091   2???           00233         goto loop3
+                      00234 
+0092                  00235 d_3sec
+0092   3002           00236         movlw 2
+0093   022A           00237         subwf bt2,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0094   1D03           00238         btfss STATUS,2
+0095   2???           00239         goto d_2sec
+0096   300C           00240         movlw d'12'
+0097   00AE           00241         movwf d3
+0098   2???           00242         goto loop3
+Warning[207]: Found label after column 1. (d_2sec)
+0099                  00243         d_2sec
+0099   3001           00244         movlw 1
+009A   022A           00245         subwf bt2,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+009B   1D03           00246         btfss STATUS,2
+009C   2???           00247         goto d_1sec
+009D   3008           00248         movlw d'8'
+009E   00AE           00249         movwf d3
+009F   2???           00250         goto loop3
+Warning[207]: Found label after column 1. (d_1sec)
+00A0                  00251         d_1sec
+00A0   3004           00252         movlw d'4'
+00A1   00AE           00253         movwf d3
+Warning[207]: Found label after column 1. (loop3)
+00A2                  00254         loop3
+00A2   30C8           00255         movlw d'200'
+00A3   00AD           00256         movwf d2
+Warning[207]: Found label after column 1. (loop2)
+00A4                  00257         loop2
+00A4   30FA           00258         movlw d'250'
+00A5   00AC           00259         movwf d1
+Warning[207]: Found label after column 1. (loop)
+00A6                  00260         loop
+00A6   0000           00261         nop
+00A7   0000           00262         nop
+00A8   0BAC           00263         decfsz d1,f
+00A9   2???           00264         goto loop 
+00AA   0BAD           00265         decfsz d2,f
+00AB   2???           00266         goto loop2
+00AC   0BAE           00267         decfsz d3,f
+00AD   2???           00268         goto loop3
+Warning[203]: Found opcode in column 1. (return)
+00AE   0008           00269 return
+                      00270 ; check delay button if pressed
+00AF                  00271 delay_check
+00AF   1886           00272         btfsc PORTB,1 ; check if button 2 is pressed --> to genereate specific delay
+00B0   2???           00273         goto last ; keep the privous delay
+Message[305]: Using default destination of 1 (file).
+00B1   0AAB           00274         incf bt2_count ; if pressed increment bt2_count by one
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00B2   3005           00275         movlw 5 
+00B3   022B           00276         subwf bt2_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00B4   1D03           00277         btfss STATUS,2 ; check if bt2_count equal 5
+00B5   2???           00278         goto fours ; else check if it is equal 4
+00B6   3000           00279         movlw 0
+00B7   00AB           00280         movwf bt2_count ;; make bt2_count zero
+00B8   3005           00281         movlw 5
+00B9   00AA           00282         movwf bt2
+00BA   2???           00283         goto last
+Warning[207]: Found label after column 1. (fours)
+00BB                  00284         fours
+00BB   3004           00285         movlw 4
+00BC   022B           00286         subwf bt2_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00BD   1D03           00287         btfss STATUS,2
+00BE   2???           00288         goto threes
+00BF   3004           00289         movlw 4
+00C0   00AA           00290         movwf bt2
+00C1   2???           00291         goto last
+Warning[207]: Found label after column 1. (threes)
+00C2                  00292         threes
+00C2   3003           00293         movlw 3
+00C3   022B           00294         subwf bt2_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00C4   1D03           00295         btfss STATUS,2
+00C5   2???           00296         goto twos
+00C6   3003           00297         movlw 3
+00C7   00AA           00298         movwf bt2
+00C8   2???           00299         goto last
+Warning[207]: Found label after column 1. (twos)
+00C9                  00300         twos
+00C9   3002           00301         movlw 2
+00CA   022B           00302         subwf bt2_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00CB   1D03           00303         btfss STATUS,2
+00CC   2???           00304         goto ones
+00CD   3002           00305         movlw 2
+00CE   00AA           00306         movwf bt2
+00CF   2???           00307         goto last
+Warning[207]: Found label after column 1. (ones)
+00D0                  00308         ones
+00D0   3001           00309         movlw 1
+00D1   022B           00310         subwf bt2_count,0
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+00D2   1D03           00311         btfss STATUS,2
+00D3   2???           00312         goto last
+00D4   3001           00313         movlw 1
+00D5   00AA           00314         movwf bt2
+Warning[207]: Found label after column 1. (last)
+00D6                  00315         last
+Warning[203]: Found opcode in column 1. (return)
+00D6   0008           00316 return
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00317 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00318 
+                      00319 ;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00320 
+3731                  00321         END
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE  9
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+INTCON                            0000008B
+ISR                               00000001
+Lp                                0000001F
+OPTION_REG                        00000081
+PORTB                             00000006
+PORTD                             00000008
+STATUS                            00000083
+TRISB                             00000086
+TRISD                             00000088
+Tfour                             00000067
+Tone                              0000007C
+Tthree                            0000006E
+Ttwo                              00000075
+__16F877A                         00000001
+__DEBUG                           1
+bt                                00000028
+bt2                               0000002A
+bt2_count                         0000002B
+bt_count                          00000029
+btn1_count                        0000005D
+count                             00000025
+d1                                0000002C
+d2                                0000002D
+d3                                0000002E
+d_1sec                            000000A0
+d_2sec                            00000099
+d_3sec                            00000092
+d_4sec                            0000008B
+d_5sec                            00000084
+delay                             0000007F
+delay1                            00000026
+delay2                            00000027
+delay_check                       000000AF
+display                           00000023
+four                              00000029
+fours                             000000BB
+int                               0000001B
+last                              000000D6
+loop                              000000A6
+loop2                             000000A4
+loop3                             000000A2
+one                               0000004D
+ones                              000000D0
+start                             00000009
+three                             00000036
+threes                            000000C2
+two                               00000042
+twos                              000000C9
+zero                              00000057
+
+MPASM  5.50                         PART1.ASM   2-25-2022  6:36:07         PAGE 10
+
+
+
+
+
+Errors   :     0
+Warnings :    14 reported,     0 suppressed
+Messages :    40 reported,     0 suppressed
+
+
